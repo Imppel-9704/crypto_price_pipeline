@@ -11,7 +11,7 @@ table_create_statement = """
     CREATE TABLE IF NOT EXISTS crypto_currencies (
         name VARCHAR(50) PRIMARY KEY,
         price DECIMAL(20, 10),
-        umarket_cap DECIMAL(20, 2),
+        market_cap DECIMAL(20, 2),
         24h_vol DECIMAL(20, 2),
         24h_change DECIMAL(5, 2),
         last_updated_at TIMESTAMP
