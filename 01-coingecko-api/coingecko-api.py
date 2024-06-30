@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
     try:
         conn = psycopg2.connect(
-            "host=127.0.0.1 dbname=postgres user=postgres password=postgres"
+            "host=127.0.0.1 dbname=os.getenv("MY_DB_NAME") user=os.getenv("MY_DB_USER") password=os.getenv("MY_DB_PASSWORD")"
         )
         cur = conn.cursor()
         data = request_data(list_of_crypto)
