@@ -12,8 +12,8 @@ table_create_statement = """
         name VARCHAR(50) PRIMARY KEY,
         price DECIMAL(20, 10),
         market_cap DECIMAL(20, 2),
-        24h_vol DECIMAL(20, 2),
-        24h_change DECIMAL(5, 2),
+        h24_vol DECIMAL(20, 2),
+        h24_change DECIMAL(5, 2),
         last_updated_at TIMESTAMP
     )
 """
@@ -36,8 +36,8 @@ def insert_data(cur: PostgresCursor, conn: PostgresConn, data):
                     name, 
                     price, 
                     market_cap, 
-                    24h_vol, 
-                    24h_change, 
+                    h24_vol, 
+                    h24_change, 
                     last_updated_at
                 ) VALUES (%s, %s, %s, %s, %s, TO_TIMESTAMP(%s))
                 ON CONFLICT (name) DO NOTHING;
@@ -66,11 +66,12 @@ def request_data(coin_name):
     return list_data
 
 if __name__ == "__main__":
+    load_dotenv()
     list_of_crypto = ['ethereum', 'bitcoin', 'solana', 'notcoin']
 
     try:
         conn = psycopg2.connect(
-            f"host=127.0.0.1 dbname={os.getenv("MY_DB_NAME")} user={os.getenv("MY_DB_USER")} password={os.getenv("MY_DB_PASSWORD")}"
+            f"host=127.0.0.1 dbname={os.getenv('MY_DB_NAME')} user={os.getenv('MY_DB_USER')} password={os.getenv('MY_DB_PASSWORD')}"
         )
         cur = conn.cursor()
         data = request_data(list_of_crypto)
